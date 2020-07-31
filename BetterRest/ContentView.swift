@@ -13,11 +13,11 @@ struct ContentView: View {
     @State private var wakeUp = defaultWakeUpTime
     @State private var coffeeAmount = 1
     
-    @State private var alertTitle = ""
-    @State private var alertMessage = ""
-    @State private var showingAlert = false
+//    @State private var alertTitle = ""
+//    @State private var alertMessage = ""
+//    @State private var showingAlert = false
     
-    @State private var bedtime = ""
+//    @State private var bedtime = ""
     
     var body: some View {
         NavigationView{
@@ -60,13 +60,14 @@ struct ContentView: View {
                 }
                 
                 Section(header: Text("Ideal bedtime for you:").font(.body)){
-                    HStack{
-                        Text("\(bedtime)")
-                        Spacer()
-                        Button(action: calculateBedTime){
-                            Text("Calculate")
-                        }
-                    }
+                    Text("\(calculateBedTime())")
+//                    HStack{
+//                        Text("\(bedtime)")
+//                        Spacer()
+//                        Button(action: calculateBedTime){
+//                            Text("Calculate")
+//                        }
+//                    }
                 }
             }
             .navigationBarTitle("BetterRest")
@@ -75,13 +76,13 @@ struct ContentView: View {
             }
         }
     
-    
-    func calculateBedTime() {
+    func calculateBedTime() -> String {
         let sleepCalculator = SleepCalculator()
         
         let components = Calendar.current.dateComponents([.hour, .minute], from: wakeUp)
         let hour = (components.hour ?? 0) * 60 * 60
         let minute = (components.minute ?? 0) * 60
+        var bedtime = ""
         
         do {
             let prediction = try
@@ -102,7 +103,8 @@ struct ContentView: View {
             bedtime = "Error"
         }
         
-        showingAlert = true
+//        showingAlert = true
+        return bedtime
     }
     
     static var defaultWakeUpTime: Date {
